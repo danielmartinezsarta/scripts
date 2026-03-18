@@ -1,0 +1,263 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "palette": {
+    "black": "#1B1A23",
+    "black-background": "#22212C",
+    "blue": "#9580FF",
+    "comment-brightBlack": "#7970A9",
+    "cyan": "#80FFEA",
+    "green": "#8AFF80",
+    "lightBlue-brightBlue": "#AA99FF",
+    "lightCyan-brightCyan": "#99FFEE",
+    "lightGreen-brightGreen": "#A2FF99",
+    "lightMagenta-brightPurple": "#FF99CC",
+    "lightRed-brightRed": "#FFAA99",
+    "lightWhite-brightWhite": "#FFFFFF",
+    "lightYellow-brightYellow": "#FFFF80",
+    "magenta-purple": "#FF80BF",
+    "purple": "#DE1F84",
+    "red": "#FF9580",
+    "selection-selectionBackground": "#454158",
+    "white": "#FFFFFF",
+    "white-cursorColor-foreground": "#F8F8F2",
+    "yellow": "#FFCA80"
+  },
+  "upgrade": {
+    "source": "cdn",
+    "interval": "168h",
+    "auto": false,
+    "notice": false
+  },
+  "console_title_template": "{{.Shell}} in {{.Folder}}",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+
+        {
+          "leading_diamond": "\ue0b2",
+          "trailing_diamond": "\ue0b0",
+          "template": " \uf489  ",
+          "foreground": "black",
+          "background": "green",
+          "type": "shell",
+          "style": "diamond"
+        },
+        {
+          "properties": {
+            "display_mode": "always",
+            "fetch_version": true,
+            "fetch_sdk_version": true,
+            "home_enabled": true
+          },
+          "template": "\ue70c {{ .Major }}.{{ .Minor }}{{if .SDKVersion}} ({{ .SDKVersion }}){{ end }} ",
+          "foreground": "black",
+          "powerline_symbol": "<transparent,background>\ue0b0</> ",
+          "background": "magenta",
+          "type": "dotnet",
+          "style": "powerline"
+        },
+        {
+          "template": "{{ if .Error }}{{ .Error }}{{ else }}{{ if .Version }}\uf487 {{.Version}}{{ end }}{{ if .Name }}{{ .Name }}{{ end }}{{ end }} ",
+          "foreground": "black",
+          "background": "magenta",
+          "type": "project",
+          "style": "powerline"
+        },
+        {
+          "properties": {
+            "display_default": false
+          },
+          "template": " \ue7ad {{ .Profile }}{{ if .Region }}@{{ .Region }}{{ end }} ",
+          "foreground": "black",
+          "powerline_symbol": "\ue0bc",
+          "background": "lightMagenta",
+          "type": "aws",
+          "style": "powerline"
+        },
+        {
+          "properties": {
+            "display_default": false
+          },
+          "template": " \ufd03 Subscription {{ .Name }} ({{ if .EnvironmentName | contains \"AzureCloud\" }}{{ \"Global\" }}{{ else }}{{ .EnvironmentName }}{{ end }}) ",
+          "foreground": "black",
+          "powerline_symbol": "\ue0bc",
+          "background": "lightBlue",
+          "type": "az",
+          "style": "powerline"
+        },
+        {
+          "properties": {
+            "display_mode": "files",
+            "fetch_version": false
+          },
+          "template": " \ufd03 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "foreground": "black",
+          "powerline_symbol": "\ue0bc",
+          "background": "yellow",
+          "type": "azfunc",
+          "style": "powerline"
+        },
+        {
+          "properties": {
+            "fetch_version": true
+          },
+          "template": " \udb80\udf99 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
+          "foreground": "black",
+          "powerline_symbol": "\ue0bc",
+          "background": "lightGreen",
+          "type": "node",
+          "style": "powerline"
+        },
+        {
+          "properties": {
+            "display_mode": "files",
+            "fetch_virtual_env": false
+          },
+          "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "foreground": "black",
+          "powerline_symbol": "\ue0bc",
+          "background": "lightYellow",
+          "type": "python",
+          "style": "powerline"
+        },
+        {
+          "properties": {
+            "display_mode": "files",
+            "fetch_version": true
+          },
+          "template": " \ue791 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "foreground": "black",
+          "powerline_symbol": "\ue0bc",
+          "background": "red",
+          "type": "ruby",
+          "style": "powerline"
+        },
+        {
+          "properties": {
+            "display_mode": "files",
+            "fetch_version": true
+          },
+          "template": " \ue7a8 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "foreground": "black",
+          "powerline_symbol": "\ue0bc",
+          "background": "lightRed",
+          "type": "rust",
+          "style": "powerline"
+        },
+        {
+          "properties": {
+            "display_mode": "files",
+            "fetch_version": true
+          },
+          "template": " \ue755 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "foreground": "black",
+          "powerline_symbol": "\ue0bc",
+          "background": "blue",
+          "type": "swift",
+          "style": "powerline"
+        },
+        {
+          "properties": {
+            "time_format": "Mon 01/02 | 15:04:05"
+          },
+          "template": " {{ .CurrentDate | date .Format }} ",
+          "foreground": "black",
+          "background": "yellow",
+          "type": "time",
+          "style": "powerline"
+        },
+        {
+          "type": "sysinfo",
+          "foreground": "#000000",
+          "background": "#43f398",
+          "template": " \udb80\udf5b {{ round .PhysicalPercentUsed .Precision }}% ",
+          "properties": {
+            "precision": 2
+          },
+          "style": "powerline"
+        },
+        {
+          "properties": {
+            "style": "austin",
+            "threshold": 0
+          },
+          "trailing_diamond": "\ue0b0",
+          "template": " {{ .FormattedMs }} ",
+          "foreground": "black",
+          "background": "cyan",
+          "type": "executiontime",
+          "style": "diamond"
+        }
+      ],
+      "newline": true
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "segments": [
+        {
+          "properties": {
+            "branch_icon": "\ue725 ",
+            "fetch_status": true,
+            "fetch_upstream_icon": true,
+            "fetch_worktree_count": true
+          },
+          "leading_diamond": "\ue0b2",
+          "trailing_diamond": "\ue0b0",
+          "template": "{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \udb80\udd93 {{ .StashCount }}{{ end }}",
+          "foreground": "black",
+          "background": "magenta",
+          "type": "git",
+          "style": "diamond"
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "template": " \u255a",
+          "foreground": "cyan",
+          "type": "text",
+          "style": "plain"
+        },
+        {
+          "properties": {
+            "folder_icon": "\uf114",
+            "home_icon": "\udb80\udedc",
+            "style": "folder"
+          },
+          "leading_diamond": "\ue0b2",
+          "template": "{{ if eq ( gt .Code 0 ) .Writable }} {{ end }}\udb80\ude56 {{ .Path }}{{ if not .Writable  }} \udb86\udea8 {{ end }}{{ if and .Writable .Root }} {{end}} ",
+          "foreground": "black",
+          "background": "blue",
+          "type": "path",
+          "style": "diamond",
+          "background_templates": [
+            "{{ if gt .Code 0 }}red{{ end }}"
+          ]
+        },
+        {
+          "properties": {
+            "root_icon": "\uf292"
+          },
+          "trailing_diamond": "\ue0b0",
+          "template": "{{ if not .Root }}\u2800{{ end }}{{ if and .Root ( not .Segments.Path.Writable ) }}\uf0e7 {{ end }}{{ if and .Root .Segments.Path.Writable }} \uf0e7 {{ end }}",
+          "foreground": "white",
+          "background": "blue",
+          "type": "text",
+          "style": "diamond",
+          "background_templates": [
+            "{{ if and .Segments.Path.Writable (not .Root) }}{{ else }}red{{ end }}"
+          ]
+        }
+      ],
+      "newline": true
+    }
+  ],
+  "version": 3,
+  "final_space": true
+}
