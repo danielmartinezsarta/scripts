@@ -3,25 +3,39 @@
 A custom powerline-style status line for Claude Code CLI, inspired by the Devious Diamonds Oh My Posh theme.
 
 ```
- ✦ Opus 4.6   10.0   feature/my-branch   biodashboard  usage: 42%
- ─── orange ──── purple ──── magenta ─────── blue ─────── cyan ────
+ ✦ Opus 4.7 (1M)   feat/BDB-5001   35%   42%  $1.23 
+ ─── orange ─────── purple ──────── green ─ cyan ── lt.magenta ─
 ```
 
 ## Segments
 
 | # | Segment | Color | Description |
 |---|---------|-------|-------------|
-| 1 | Model | `#D97757` Claude orange | Current Claude model |
-| 2 | .NET | `#AA99FF` purple (no bg) | .NET version, only when `.csproj`/`.sln` files exist |
-| 3 | Git branch | `#FF80BF` magenta | Current branch from git |
-| 4 | Folder | `#9580FF` blue | Current working directory name |
-| 5 | Context | `#80FFEA` cyan | Context window usage with color alerts |
+| 1 | Model + context size | `#D97757` Claude orange | Current model and its context window (e.g. `(1M)`, `(200K)`) |
+| 2 | Git branch | `#AA99FF` purple | Shortened branch (`feat/BDB-123`). Falls back to folder name when no git repo |
+| 3 | Rate limit (5h) | green / yellow / red | 5-hour Claude usage window, with reset countdown when in the red zone |
+| 4 | Context | `#80FFEA` cyan | Context window usage with color alerts |
+| 5 | Session cost | `#FF99CC` light magenta | Total USD cost of the current session |
+
+### Rate limit colors
+
+- **< 50%** — Green (plenty of headroom)
+- **50-79%** — Yellow (attention)
+- **>= 80%** — Red, with `Xh Ym` countdown to the next reset
 
 ### Context usage colors
 
 - **< 75%** — Cyan (normal)
 - **75-89%** — Soft yellow (attention)
 - **>= 90%** — Red (critical, consider starting a new conversation)
+
+### Branch shortening
+
+`feature/user/BDB-5001-mobile-auth` → `feat/BDB-5001`. Supported prefixes: `feature/` → `feat`, `bugfix/`|`bug/` → `bug`, `hotfix/`, `release/`. Without a ticket ID, the branch is left untouched.
+
+### .NET segment
+
+The .NET version segment exists in the script (commented out) to keep the status line compact. Uncomment the block in `statusline.sh` to re-enable it.
 
 ## Requirements
 
