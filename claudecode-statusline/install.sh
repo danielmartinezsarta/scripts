@@ -42,9 +42,19 @@ if [ -f "$SETTINGS_FILE" ]; then
     echo "  settings.json already has a statusLine config — skipping."
     echo "  To update manually, set: \"command\": \"bash ~/.claude/statusline.sh\""
   else
-    # Add statusLine to existing settings (insert after opening brace)
-    sed -i '1 a\  "statusLine": { "type": "command", "command": "bash ~/.claude/statusline.sh" },' "$SETTINGS_FILE"
-    echo "  Updated $SETTINGS_FILE with statusLine config."
+    tmp="$(mktemp)"
+    if command -v jq >/dev/null 2>&1; then
+      # Preferred: use jq for correct JSON manipulation
+      jq '. + {statusLine: {type: "command", command: "bash ~/.claude/statusline.sh"}}' \
+        "$SETTINGS_FILE" > "$tmp" && mv "$tmp" "$SETTINGS_FILE"
+      echo "  Updated $SETTINGS_FILE with statusLine config (via jq)."
+    else
+      # Fallback: portable sed (works on BSD/macOS and GNU/Linux; avoids -i differences)
+      sed '1 a\
+  "statusLine": { "type": "command", "command": "bash ~/.claude/statusline.sh" },
+' "$SETTINGS_FILE" > "$tmp" && mv "$tmp" "$SETTINGS_FILE"
+      echo "  Updated $SETTINGS_FILE with statusLine config (via sed)."
+    fi
   fi
 else
   # Create new settings.json
